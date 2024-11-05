@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:produto_front/models/produto.dart';
 
 class ProdutoService {
-  final String apiUrl = 'https://localhost:3000/';
+  final String apiUrl = 'http://localhost:3000/';
 
   Future<List<Produto>> fetchProdutos() async {
     final response = await http.get(Uri.parse(apiUrl));

@@ -31,33 +31,38 @@ class _ProdutoListState extends State<ProdutoList> {
             return Center(child: Text('Erro: ${snapshot.error}'));
           } else {
             final produtos = snapshot.data!;
-            return ListView.builder(
-              itemCount: produtos.length,
-              itemBuilder: (ctx, i) {
-                final produto = produtos[i];
-
-                return Card(
-                  margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                  elevation: 5,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: ListTile(
-                    contentPadding: EdgeInsets.all(8),
-                    title: Text(
-                      produto.descricao,
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black87,
+            return Center(
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: produtos.map((produto) {
+                    return Container(
+                      width: 500,
+                      margin: EdgeInsets.symmetric(vertical: 6),
+                      child: Card(
+                        color: Color(0xFFF5F5F5),
+                        elevation: 2,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: ListTile(
+                          contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                          title: Text(
+                            produto.descricao,
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black87,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          onTap: () {},
+                        ),
                       ),
-                    ),
-                    onTap: () {
-                      // Handle product tap
-                    },
-                  ),
-                );
-              },
+                    );
+                  }).toList(),
+                ),
+              ),
             );
           }
         },
