@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:produto_front/views/produtoList.dart';
 import 'package:produto_front/views/produtoForm.dart';
+import 'package:produto_front/views/produtoDetail.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,7 +16,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.dark(),
       home: ProdutoList(),
       routes: {
-        '/produtoForm': (_) => ProdutoForm()
+        '/produtoForm': (_) => ProdutoForm(),
+        '/produtoDetail': (_) => ProdutoDetail()
       }
     );
   }

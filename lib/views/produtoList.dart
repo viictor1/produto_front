@@ -63,7 +63,13 @@ class _ProdutoListState extends State<ProdutoList> {
                             ),
                             textAlign: TextAlign.center,
                           ),
-                          onTap: () {},
+                          onTap: () async {
+                            await Navigator.of(context).pushNamed(
+                              '/produtoDetail',
+                              arguments: produto,
+                            );
+                            _refreshProdutos();
+                          },
                         ),
                       ),
                     );

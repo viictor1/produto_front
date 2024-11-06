@@ -27,4 +27,14 @@ class ProdutoService {
       throw Exception('Erro ao salvar o produto');
     }
   }
+
+  Future<void> deleteProduto(int? id) async {
+    final response = await http.delete(
+      Uri.parse('$url$id'),
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception('Erro ao excluir o produto');
+    }
+  }
 }
