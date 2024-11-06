@@ -1,16 +1,23 @@
 # produto_front
+Aplicação frontend composta por um CRUD de produtos para a matéria de Desenvolvimento Móvel
 
-A new Flutter project.
+### Pré-requisitos
+ - Flutter
+ - [Backend](https://github.com/viictor1/produto-api).
 
-## Getting Started
+## Como rodar a aplicação
+1. Instale ou clone o repositório:
+```console
+$ git clone https://github.com/viictor1/produto_front.git
+```
+2. Acesse a pasta do projeto
+```console
+$ cd produto_front
+```
+3. Utilize o comando:
+```console
+$ flutter run
+```
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Tecnologias Utilizadas
+- Flutter
