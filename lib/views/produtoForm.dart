@@ -11,27 +11,34 @@ class ProdutoForm extends StatefulWidget {
 class _ProdutoFormState extends State<ProdutoForm> {
   Produto? produto;
   final _form = GlobalKey<FormState>();
-
   late TextEditingController _descricaoController;
   late TextEditingController _precoController;
   late TextEditingController _estoqueController;
   late TextEditingController _dataController;
 
   final ProdutoService _produtoService = ProdutoService();
-
   DateTime? _selectedDate;
+
+  @override
+  void initState() {
+    super.initState();
+    _descricaoController = TextEditingController();
+    _precoController = TextEditingController();
+    _estoqueController = TextEditingController();
+    _dataController = TextEditingController();
+  }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    
     if (produto == null) {
-      produto = ModalRoute.of(context)!.settings.arguments as Produto;
-      
-      _descricaoController = TextEditingController(text: produto!.descricao);
-      _precoController = TextEditingController(text: produto!.preco.toString());
-      _estoqueController = TextEditingController(text: produto!.estoque.toString());
-      _dataController = TextEditingController(text: produto!.data.toLocal().toString().split(' ')[0]);
+      produto = ModalRoute.of(context)?.settings.arguments as Produto?;
+      if (produto != null) {
+        _descricaoController.text = produto?.descricao ?? '';
+        _precoController.text = produto?.preco.toString() ?? '';
+        _estoqueController.text = produto?.estoque.toString() ?? '';
+        _dataController.text = produto?.data?.toLocal().toString().split(' ')[0] ?? '';
+      }
     }
   }
 
@@ -45,36 +52,42 @@ class _ProdutoFormState extends State<ProdutoForm> {
   }
 
   Future<void> _saveForm() async {
-    if (!_form.currentState!.validate()) return;
+  if (!_form.currentState!.validate()) return;
 
-    final produto = Produto(
-      descricao: _descricaoController.text,
-      preco: double.parse(_precoController.text),
-      data: _selectedDate ?? DateTime.now(),
-      estoque: int.parse(_estoqueController.text),
-    );
+  final produtoSalvar = Produto(
+    id: produto?.id,
+    descricao: _descricaoController.text,
+    preco: double.parse(_precoController.text),
+    data: _selectedDate ?? DateTime.now(),
+    estoque: int.parse(_estoqueController.text),
+  );
 
-    try {
-      await _produtoService.saveProduto(produto);
-      Navigator.of(context).pop();
-    } catch (error) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(error.toString())),
-      );
+  try {
+    if (produto?.id != null) {
+      await _produtoService.editarProduto(produtoSalvar);
+    } else {
+      await _produtoService.saveProduto(produtoSalvar);
     }
+    
+    Navigator.of(context).pop();
+  } catch (error) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(error.toString())),
+    );
   }
+}
 
-  Future<void> selecionarData() async {
+  Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: _selectedDate ?? DateTime.now(),
       firstDate: DateTime(2000),
-      lastDate: DateTime(2100),
+      lastDate: DateTime(2101),
     );
     if (picked != null && picked != _selectedDate) {
       setState(() {
-        _selectedDate = picked;
-        _dataController.text = '${_selectedDate!.toLocal()}'.split(' ')[0];
+        _selectedDate = DateTime(picked.year, picked.month, picked.day);
+        _dataController.text = _selectedDate?.toLocal().toString().split(' ')[0] ?? '';
       });
     }
   }
@@ -143,7 +156,7 @@ class _ProdutoFormState extends State<ProdutoForm> {
                     decoration: InputDecoration(
                       labelText: 'Data',
                       suffixIcon: GestureDetector(
-                        onTap: selecionarData,
+                        onTap: () => _selectDate(context),
                         child: Icon(Icons.calendar_today),
                       ),
                     ),
