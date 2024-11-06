@@ -109,7 +109,7 @@ class ProdutoDetail extends StatelessWidget {
                   alignment: Alignment.center,
                   padding: EdgeInsets.symmetric(vertical: 8.0),
                   child: Text(
-                    '${produto.data.toLocal().toString().split(' ')[0]}',
+                    '${produto.data.toString().split(' ')[0]}',
                     style: TextStyle(fontSize: 16),
                   ),
                 ),

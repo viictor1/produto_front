@@ -37,7 +37,7 @@ class _ProdutoFormState extends State<ProdutoForm> {
         _descricaoController.text = produto?.descricao ?? '';
         _precoController.text = produto?.preco.toString() ?? '';
         _estoqueController.text = produto?.estoque.toString() ?? '';
-        _dataController.text = produto?.data?.toLocal().toString().split(' ')[0] ?? '';
+        _dataController.text = produto?.data?.toString().split(' ')[0] ?? '';
       }
     }
   }
@@ -87,7 +87,7 @@ class _ProdutoFormState extends State<ProdutoForm> {
     if (picked != null && picked != _selectedDate) {
       setState(() {
         _selectedDate = DateTime(picked.year, picked.month, picked.day);
-        _dataController.text = _selectedDate?.toLocal().toString().split(' ')[0] ?? '';
+        _dataController.text = _selectedDate?.toString().split(' ')[0] ?? '';
       });
     }
   }
