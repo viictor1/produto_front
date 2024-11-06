@@ -24,4 +24,14 @@ class Produto {
       estoque: json['estoque'],
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'descricao': descricao,
+      'preco': preco,
+      'data': data.toIso8601String(), 
+      'estoque': estoque,
+    };
+  }
 }

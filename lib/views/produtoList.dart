@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:produto_front/data/produtoService.dart';
+import 'package:produto_front/service/produtoService.dart';
 import 'package:produto_front/models/produto.dart';
 
 class ProdutoList extends StatefulWidget {
@@ -16,11 +16,17 @@ class _ProdutoListState extends State<ProdutoList> {
     futureProdutos = ProdutoService().fetchProdutos();
   }
 
+  void _refreshProdutos() {
+    setState(() {
+      futureProdutos = ProdutoService().fetchProdutos();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Lista de Produtos'),
+        title: Center(child: Text('Lista de Produtos')),
       ),
       body: FutureBuilder<List<Produto>>(
         future: futureProdutos,
@@ -31,13 +37,14 @@ class _ProdutoListState extends State<ProdutoList> {
             return Center(child: Text('Erro: ${snapshot.error}'));
           } else {
             final produtos = snapshot.data!;
-            return Center(
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: produtos.map((produto) {
+            return Center( 
+              child: Container(
+                width: 500,  
+                child: ListView.builder(
+                  itemCount: produtos.length,
+                  itemBuilder: (context, index) {
+                    final produto = produtos[index];
                     return Container(
-                      width: 500,
                       margin: EdgeInsets.symmetric(vertical: 6),
                       child: Card(
                         color: Color(0xFFF5F5F5),
@@ -60,12 +67,21 @@ class _ProdutoListState extends State<ProdutoList> {
                         ),
                       ),
                     );
-                  }).toList(),
+                  },
                 ),
               ),
             );
           }
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          await Navigator.of(context).pushNamed('/produtoForm');
+          _refreshProdutos();
+        },
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        child: Icon(Icons.add),
       ),
     );
   }
