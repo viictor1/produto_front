@@ -37,4 +37,16 @@ class ProdutoService {
       throw Exception('Erro ao excluir o produto');
     }
   }
+
+  Future<void> editarProduto(Produto produto) async {
+    final response = await http.put(
+      Uri.parse(url),
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode(produto.toJson()),
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception('Erro ao editar o produto');
+    }
+  }
 }

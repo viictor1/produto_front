@@ -9,16 +9,31 @@ class ProdutoForm extends StatefulWidget {
 }
 
 class _ProdutoFormState extends State<ProdutoForm> {
+  Produto? produto;
   final _form = GlobalKey<FormState>();
 
-  final _descricaoController = TextEditingController();
-  final _precoController = TextEditingController();
-  final _estoqueController = TextEditingController();
-  final _dataController = TextEditingController();
-  
+  late TextEditingController _descricaoController;
+  late TextEditingController _precoController;
+  late TextEditingController _estoqueController;
+  late TextEditingController _dataController;
+
   final ProdutoService _produtoService = ProdutoService();
 
   DateTime? _selectedDate;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    
+    if (produto == null) {
+      produto = ModalRoute.of(context)!.settings.arguments as Produto;
+      
+      _descricaoController = TextEditingController(text: produto!.descricao);
+      _precoController = TextEditingController(text: produto!.preco.toString());
+      _estoqueController = TextEditingController(text: produto!.estoque.toString());
+      _dataController = TextEditingController(text: produto!.data.toLocal().toString().split(' ')[0]);
+    }
+  }
 
   @override
   void dispose() {

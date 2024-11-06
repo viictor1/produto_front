@@ -118,11 +118,31 @@ class ProdutoDetail extends StatelessWidget {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => handleDeletar(context, produto.id),
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
-        child: Icon(Icons.delete),
+      bottomNavigationBar: BottomAppBar(
+        shape: CircularNotchedRectangle(),
+        child: SizedBox(
+          height: 70,
+          child: ButtonBar(
+            alignment: MainAxisAlignment.spaceAround,
+            buttonPadding: EdgeInsets.all(12),
+            children: [
+              IconButton(
+                icon: Icon(Icons.delete, color: Colors.red),
+                onPressed: () => handleDeletar(context, produto.id),
+              ),
+              IconButton(
+                icon: Icon(Icons.edit, color: Colors.blue),
+                onPressed: () async {
+                  await Navigator.of(context).pushNamed(
+                    '/produtoForm',
+                    arguments: produto,
+                  );
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
