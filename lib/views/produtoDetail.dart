@@ -42,39 +42,76 @@ class ProdutoDetail extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Produto Detalhes'),
+        title: Text('Detalhes do Produto'),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: EdgeInsets.all(20),
-        child: Center(
+      body: Center(
+        child: Padding(
+          padding: EdgeInsets.all(10),
           child: Container(
             width: 500,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  'Descrição: ${produto.descricao}',
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.blueAccent,
+                Center(
+                  child: Text(
+                    'Descrição',
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                 ),
-                SizedBox(height: 20),
-                Text(
-                  'Preço: R\$ ${produto.preco.toStringAsFixed(2)}',
-                  style: TextStyle(fontSize: 20, color: Colors.green),
+                Container(
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.symmetric(vertical: 8.0),
+                  child: Text(
+                    produto.descricao,
+                    style: TextStyle(fontSize: 16),
+                  ),
                 ),
-                SizedBox(height: 20),
-                Text(
-                  'Estoque: ${produto.estoque}',
-                  style: TextStyle(fontSize: 20),
+                Divider(),
+                Center(
+                  child: Text(
+                    'Preço',
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
                 ),
-                SizedBox(height: 20),
-                Text(
-                  'Data de Cadastro: ${produto.data.toLocal().toString().split(' ')[0]}',
-                  style: TextStyle(fontSize: 20),
+                Container(
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.symmetric(vertical: 8.0),
+                  child: Text(
+                    'R\$ ${produto.preco.toStringAsFixed(2)}',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ),
+                Divider(),
+                Center(
+                  child: Text(
+                    'Estoque',
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Container(
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.symmetric(vertical: 8.0),
+                  child: Text(
+                    '${produto.estoque}',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ),
+                Divider(),
+                Center(
+                  child: Text(
+                    'Data',
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Container(
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.symmetric(vertical: 8.0),
+                  child: Text(
+                    '${produto.data.toLocal().toString().split(' ')[0]}',
+                    style: TextStyle(fontSize: 16),
+                  ),
                 ),
               ],
             ),
