@@ -111,6 +111,7 @@ class _ProdutoFormState extends State<ProdutoForm> {
                     controller: _descricaoController,
                     decoration: InputDecoration(labelText: 'Descrição'),
                     textAlign: TextAlign.center,
+                    maxLength: 200,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Descrição Inválida';
