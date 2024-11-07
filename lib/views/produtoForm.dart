@@ -154,10 +154,10 @@ class _ProdutoFormState extends State<ProdutoForm> {
                   SizedBox(height: 10),
                   TextFormField(
                     controller: _dataController,
+                    onTap: () => _selectDate(context),
                     decoration: InputDecoration(
                       labelText: 'Data',
                       suffixIcon: GestureDetector(
-                        onTap: () => _selectDate(context),
                         child: Icon(Icons.calendar_today),
                       ),
                     ),
